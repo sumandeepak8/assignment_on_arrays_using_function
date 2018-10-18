@@ -132,7 +132,6 @@ const countNumberAbove = function(numbers,number){
   }
   return count;
 }
-
 //to count the numbers that are below to a certain threshold in an array.
 const countNumberBelow = function(numbers,number){
   let  count = numbers.length-countNumberAbove(numbers,number)-1;
@@ -212,17 +211,18 @@ const unite = function(first,second){
 
 
 //to get the intersection of two arrays.
-const getIntersection = function(firstNumbers,secondNumbers){
-  let commonNumbers = [];
-  firstNumbers = unique(firstNumbers);
-  secondNumbers = unique(secondNumbers);
-  for( let index = 0; (index < secondNumbers.length || index < firstNumbers.length); index++){
-    if(firstNumbers.includes(secondNumbers[index])){
-      commonNumbers.push(secondNumbers[index]);
+const getIntersection = function(first,second){
+  let common = [];
+  first = unique(first);
+  second = unique(second);
+  for( let index = 0; index < second.length; index++){
+    if(first.includes(second[index])){
+      common.push(second[index]);
     }
   }
-  return commonNumbers;
+  return common;
 }
+
 
 //first array contains and second doesn't.
 const difference = function(first,second){
@@ -243,7 +243,7 @@ const isSubset = function(array,subsetCandidate){
   subsetCandidate = unique(subsetCandidate);
   let count = 0;
   for( element of subsetCandidate){
-    if(array.includes(subsetCandidate[index])){
+    if(array.includes(element)){
       count += 1;
     }
   }

@@ -74,7 +74,6 @@ const countNumberBelow = lib.countNumberBelow;
 assert.deepStrictEqual(countNumberBelow([1,2,3,4,5,6,7],6),5);
 assert.deepStrictEqual(countNumberBelow([1,2,4,5,6,7],4),2);
 
-/*
 
 //test for reversed array without changing the given array.
 const reversedArray = lib.genReverse;
@@ -133,9 +132,9 @@ assert.deepStrictEqual(diff([0,2,," ",4,6,1,8],[0,6],),[2,undefined," ",4,1,8]);
 
 //test if the second array is proper subset of first array.
 const isSubset = lib.isSubset;
-assert.deepStrictEqual(isSubset([1,2,3,49],[1,49],),true);
-assert.deepStrictEqual(isSubset([1,2,"hello",40],[1,49],),false);
-assert.deepStrictEqual(isSubset([1,"hello",0,40],[1,"hello",40],),true);
+assert.deepStrictEqual(isSubset([1,2,3,49],[1,49]),true);
+assert.deepStrictEqual(isSubset([1,2,"hello",40],[1,49]),false);
+assert.deepStrictEqual(isSubset([1,"hello",0,40],[1,"hello",40]),true);
 
 
 // test to get new array formed by two array.
@@ -147,13 +146,13 @@ assert.deepStrictEqual(zipArrays([2,"hello",3],[2,5,]),[[2,2],["hello",5]]);
 
 
 // test for rotate array.
-const rotateArray = lib.rotateArray;
-assert.deepStrictEqual(rotateArray([3,6,7,2,4],2),[7,2,4,3,6]);
-assert.deepStrictEqual(rotateArray([1,2,3,4,5],2),[3,4,5,1,2]);
+const rotate = lib.rotate;
+assert.deepStrictEqual(rotate([3,6,7,2,4],2),[7,2,4,3,6]);
+assert.deepStrictEqual(rotate([1,2,3,4,5],2),[3,4,5,1,2]);
 
 
 //test for partioned array.
 const {partition } =lib 
 assert.deepStrictEqual(partition([2,3,5,7,1,4],3),[[2,3,1],[5,7,4]]);
 assert.deepStrictEqual(partition([8,3,5,6,1,4],5),[[3,5,1,4],[8,6]]);
-*/
+
