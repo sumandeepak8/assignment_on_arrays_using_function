@@ -61,8 +61,12 @@ const everySecondNumber = function(numbers){
 // to generate reverse fibonacci.
 const reverseFibonacci = function(number){
   let fiboNumbers = [];
-  fiboNumbers[1] = 0;
-  fiboNumbers[0] = 1;
+  if(number >0){
+  fiboNumbers[0] = 0;
+  }
+  if(number>1){
+  fiboNumbers.unshift(1);
+  }
   for(index = 2; index < number; index++){
     fiboNumbers.unshift(fiboNumbers[0]+fiboNumbers[1]);
   }

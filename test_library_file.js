@@ -5,68 +5,84 @@ const lib = require('./library_file.js');
 //test to separate odd numbers.
 const oddNumbers = lib.extractOddNumbers;
 assert.deepStrictEqual(oddNumbers([1,2,3,4,5,6]),[1,3,5]);
+assert.deepStrictEqual(oddNumbers([0,3,4,[],6]),[3]);
+assert.deepStrictEqual(oddNumbers([0,3,4,[],null,undefined]),[3,undefined]);
 
 
 //test of separate even number program.
 const evenNumbers = lib.extractEvenNumbers;
 assert.deepStrictEqual(evenNumbers([0,1,2,3,4,5,6,7,8]),[0,2,4,6,8]);
+assert.deepStrictEqual(evenNumbers([0,3,4,7]),[0,4])
 
 
 //to calculate sum of an elements of array.
 const sum = lib.sum;
 assert.deepStrictEqual(sum([1,2,3,0]),6);
+assert.deepStrictEqual(sum([-1,2,3,null,]),4);
 
 
 //test to reverse the array.
 const reverse = lib.reverse;
 assert.deepStrictEqual(reverse([2,4,6,8]),[8,6,4,2]);
+assert.deepStrictEqual(reverse([2,"hello",6,null,8]),[8,null,6,"hello",2]);
 
 
 //to find every second element.
 const number = lib.number;
 assert.deepStrictEqual(number([1,2,3,4,5,6,7]),[1,3,5,7]);
+assert.deepStrictEqual(number([1,2,3,null,5,6,undefined]),[1,3,5,undefined]);
 
 
 //test for reverse fibonacci but input should be greater than 1.
 const reverseFibonacci = lib.reverseFibonacci;
 assert.deepEqual(reverseFibonacci(15),[ 377, 233, 144, 89, 55, 34, 21, 13, 8, 5, 3, 2, 1, 1, 0 ]);
+assert.deepEqual(reverseFibonacci(2),[1,0]); 
+assert.deepEqual(reverseFibonacci(1),[0]); 
+assert.deepEqual(reverseFibonacci(0),[]); 
 
 
 //test for greatest number
 const greatestNum = lib.greatestNum;
-assert.deepEqual(greatestNum([3,2,5,2,7,6,9,11,2,0]),11);
+assert.deepEqual(greatestNum([3,2,5,2,7,6,9,11,null,2,0]),11);
+assert.deepEqual(greatestNum([3,2,5,Infinity]),Infinity);
+assert.deepEqual(greatestNum([3,undefined,5,null]),5);
 
 
 //test for lowest number
 const lowestNum = lib.lowestNum;
-assert.deepEqual(lowestNum([5,6,5,4,8,2,7,8]),2);
+assert.deepEqual(lowestNum([5,6,5,4,null,2,7,8]),null);
+assert.deepEqual(lowestNum([5,4,2,7,0,,]),0);
 
 
 //test for average of numbers.
 const average = lib.average;
-assert.deepEqual(average([2,6,6,4,2]),4);
-assert.deepEqual(average([2,6,0,2,2,0]),2);
+assert.deepEqual(average([2,6,4]),4);
+assert.deepEqual(average([2,6,0,2,null]),2);
+assert.deepEqual(average([0]),0);
 
 
 //test for mapping length.
 const mapLength = lib.mapLength;
 assert.deepEqual(mapLength(["suman","deepak","1"]),[5,6,1]);
+assert.deepEqual(mapLength(["suman","om",0]),[5,2,undefined]);
 
 
 //test for count odd numbers.
 const countOddNumbers = lib.countOddNumbers;
 assert.deepEqual(countOddNumbers([1,2,3,4,5,6,7]),4);
+assert.deepEqual(countOddNumbers([0,undefined,7]),2);
 
 
 //test for count even numbers.
 const {countEvenNumbers} = lib;
 assert.deepEqual(countEvenNumbers([1,2,34,4,5,6,7]),4);
+assert.deepEqual(countEvenNumbers([0,2,34,undefined,5,6,7]),4);
 
 
 //test for countNumberAbove.
 const countNumberAbove = lib.countNumberAbove;
 assert.deepEqual(countNumberAbove([1,2,3,4,5,6,7,8],3),5);
-assert.deepEqual(countNumberAbove([6,9,7,3,5,1,7,8],3),6);
+assert.deepEqual(countNumberAbove([6,null,7,0,5,undefined],3),5);
 
 
 //test for countNumberBelow.
