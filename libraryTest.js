@@ -1,12 +1,31 @@
 const assert = require('assert');
 const lib = require('./library.js');
+const testFrame = require('./testFrameWork');
+
+const {testLogs} = testFrame;
+const {sum} = lib;
+
+const testLog = function(funRef,num1,num2,expected){
+  let actual = funRef(num1,num2);
+   console.log(testLogs(funRef,num1,num2,expected,actual));
+  return 0
+}
+testLog(sum,2,3,5);
 
 
 //test to separate odd numbers.
 const oddNumbers = lib.extractOddNumbers;
 assert.deepStrictEqual(oddNumbers([1,2,3,4,5,6]),[1,3,5]);
 assert.deepStrictEqual(oddNumbers([0,3,4,[],6]),[3]);
-assert.deepStrictEqual(oddNumbers([0,3,4,[],null,undefined]),[3,undefined]);
+assert.deepEqual(oddNumbers([-1,3,"a",[],null,undefined]),[-1,3]);
+
+const testLogOdd = function(funRef,numbers,expected){
+  let actual = funRef(numbers);
+   console.log(testLogs(funRef,numbers,expected,actual));
+  return 0
+}
+testLogOdd(oddNumbers,[1,2,3,4,5,6],[1,3,5]);
+
 
 //test of separate even number program.
 const evenNumbers = lib.extractEvenNumbers;
@@ -15,9 +34,9 @@ assert.deepStrictEqual(evenNumbers([0,3,4,7]),[0,4])
 
 
 //to calculate sum of an elements of array.
-const sum = lib.calculateSum;
-assert.deepStrictEqual(sum([1,2,3,0]),6);
-assert.deepStrictEqual(sum([-1,2,3,null,]),4);
+const calculateSum = lib.calculateSum;
+assert.deepStrictEqual(calculateSum([1,2,3,0]),6);
+assert.deepStrictEqual(calculateSum([-1,2,3,null,]),4);
 
 
 //test to reverse the array.
@@ -69,7 +88,7 @@ assert.deepEqual(mappingLengthOfElements(["suman","om",0]),[5,2,undefined]);
 //test for count odd numbers.
 const countOddNumbers = lib.countOddNumbers;
 assert.deepEqual(countOddNumbers([1,2,3,4,5,6,7]),4);
-assert.deepEqual(countOddNumbers([0,undefined,7]),2);
+assert.deepEqual(countOddNumbers([0,undefined,7]),1);
 
 
 //test for count even numbers.

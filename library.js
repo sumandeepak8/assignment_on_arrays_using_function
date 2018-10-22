@@ -1,43 +1,34 @@
-const isOdd = function(numbers){
-  let oddNumbers = [];
-  for(let number of numbers){
-    if(number%2 != 0){
-      oddNumbers.push(number);
-    }
-  }
-  return oddNumbers;
+// to get the sum of two numbers.
+const sum = function(num1,num2){
+  return num1+num2;
 }
+exports.sum = sum;
 
+// to check if the given number is odd.
+const isOdd = function(number){
+    return (number%2 == 1 || number%2 == -1);
+}
 
 // to separate the odd numbers out of an array.
 const extractOddNumbers = function(numbers){
-  return isOdd(numbers);
+  let oddNumbers = numbers.filter(isOdd);
+  return oddNumbers;
 }
 
-
-const isEven = function(numbers) {
-  let evenNumbers = [];
-  for(let number of numbers){
-    if(number%2 == 0){
-      evenNumbers.push(number);
-    }
-  }
-  return evenNumbers;
+// to check if the number is even.
+const isEven = function(number) {
+    return  (number%2 == 0);
 }
-
 
 // to separate even numbers.
 const extractEvenNumbers = function(numbers){
-  return isEven(numbers);
+  let evenNumbers = numbers.filter(isEven);
+  return evenNumbers;
 }
 
 // to find the sum of number.
 const calculateSum = function(numbers){
-  let sum = 0;
-  for(let number of numbers){
-    sum = sum+number;
-  }
-  return sum;
+  return numbers.reduce(sum,0);
 }
 
 // to reverse the given array.
@@ -45,14 +36,14 @@ const reverse = function(numbers){
   return numbers.reverse();
 }
 
-// to  every second element.
+// to check if the element is at second position from the last second element.
+const isSecondElement = function(number,index){
+  return (index%2 == 0)
+}
+
+// to get every second element.
 const getEverySecondNumber = function(numbers){
-  let numberList = [];
-  for(let index = 0; index < numbers.length; index++){
-    if(index%2 == 0){
-      numberList.push(numbers[index]);
-    }
-  }
+  let numberList = numbers.filter(isSecondElement);
   return numberList;
 }
 
@@ -72,26 +63,28 @@ const reverseFibonacciSeries = function(number){
   return fiboNumbers;
 }
 
+// to check if the current number is greater than the last greatest number.
+const getGreater = function(previous,current){
+  if(previous>current){
+    return previous;
+  }
+  return current;
+}
 
 // to find greater number in list.
 const getGreatestNumber = function(numbers){
-  let greatestNumber = numbers[0];
-  for(let index = 0; index < numbers.length; index++){
-    if( greatestNumber <  numbers[index]){
-      greatestNumber = numbers[index];
-    }
-  }
+  let greatestNumber = numbers.reduce(getGreater); 
   return greatestNumber;
+}
+
+const getLower = function(previous,current){
+if(current<previous) return current;
+  return previous;
 }
 
 //to find lowest number.
 const getLowestNumber = function(numbers){
-  let lowestNumber = numbers[0];
-  for(let index = 0; index < numbers.length; index++){
-    if( lowestNumber > numbers[index]){
-      lowestNumber = numbers[index];
-    }
-  }
+  let lowestNumber = numbers.reduce(getLower); 
   return lowestNumber;
 }
 
@@ -105,11 +98,8 @@ const average = function(numbers){
 
 //to calculate the length of array elements.
 const mappingLengthOfElements = function(source){
-  let elementLengths = [];
-  for(element of source){
-    elementLengths.push(element.length);
-  }
-  return elementLengths;
+   let lengths = source.map(function(element){ return element.length;});
+    return lengths
 }
 
 
@@ -126,15 +116,14 @@ const countOddNumbers = function(numbers){
   return count;
 }
 
+ const isLower = function(element,threshold){
+    return element>threshold
+  }
+
 
 // to count the numbers the are above to a certain threshold in an array.
 const countNumbersAboveThreshold = function(numbers,threshold){
-  let count = 0;
-  for(num of numbers){
-    if(num > threshold){
-      count++;
-    }
-  }
+  let count = numbers.filter(function(element){return isLower(element,threshold);}).length;
   return count;
 }
 
@@ -147,10 +136,7 @@ const countNumbersBelowThreshold = function(numbers,threshold){
 
 //to find a reversed version of an array without changing the original array.
 const generateReverse = function(numbers){
-  let numberArray = [];
-  for(let number of numbers){
-    numberArray.push(number);
-  }
+  let numberArray = numbers.filter(function(){return true});
   return reverse(numberArray);
 }
 
@@ -169,14 +155,13 @@ const getFirstIndex = function(numbers,number){
 
 //to check if the array is in ascending order.
 const isAscending = function(numbers){
-  let index = 0;
-  let numToCompare = numbers[index];
-  for(index = 1; (index<numbers.length) && (numToCompare<=numbers[index]); index++){
-    numToCompare = numbers[index];
-  }
-  return (index == numbers.length);
+ let index = 0;
+ let numToCompare = numbers[index];
+ for(index = 1; (index<numbers.length) && (numToCompare<=numbers[index]); index++){
+   numToCompare = numbers[index];
+ }
+ return (index == numbers.length);
 }
-
 
 //to check the descending order of array.
 const isDescending = function(numbers){
@@ -295,6 +280,7 @@ const getPartition = function(array,number) {
   array.push(lessNumber);
   array.push(remaining);
   return array; 
+ 
 }
 
 
