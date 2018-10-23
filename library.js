@@ -155,13 +155,10 @@ const getFirstIndex = function(numbers,number){
 
 //to check if the array is in ascending order.
 const isAscending = function(numbers){
- let index = 0;
- let numToCompare = numbers[index];
- for(index = 1; (index<numbers.length) && (numToCompare<=numbers[index]); index++){
-   numToCompare = numbers[index];
- }
- return (index == numbers.length);
+let boolean = numbers.reduce(function(acc,cv){if(acc.cv >cv)acc.res = false;res = acc.res ;return {cv,res}},{cv:numbers[0],res:true}).res
+return boolean;
 }
+
 
 //to check the descending order of array.
 const isDescending = function(numbers){

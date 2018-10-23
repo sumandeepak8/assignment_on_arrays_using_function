@@ -5,12 +5,12 @@ const testFrame = require('./testFrameWork');
 const {testLogs} = testFrame;
 const {sum} = lib;
 
-const testLog = function(funRef,num1,num2,expected){
-  let actual = funRef(num1,num2);
-   console.log(testLogs(funRef,num1,num2,expected,actual));
-  return 0
-}
-testLog(sum,2,3,5);
+//const testLog = function(funRef,num1,num2,expected){
+//  let actual = funRef(num1,num2);
+//   console.log(testLogs(funRef,num1,num2,expected,actual));
+//  return 0
+//}
+//testLog(sum,2,3,5);
 
 
 //test to separate odd numbers.
@@ -19,12 +19,12 @@ assert.deepStrictEqual(oddNumbers([1,2,3,4,5,6]),[1,3,5]);
 assert.deepStrictEqual(oddNumbers([0,3,4,[],6]),[3]);
 assert.deepEqual(oddNumbers([-1,3,"a",[],null,undefined]),[-1,3]);
 
-const testLogOdd = function(funRef,numbers,expected){
-  let actual = funRef(numbers);
-   console.log(testLogs(funRef,numbers,expected,actual));
-  return 0
-}
-testLogOdd(oddNumbers,[1,2,3,4,5,6],[1,3,5]);
+//const testLogOdd = function(funRef,numbers,expected){
+//  let actual = funRef(numbers);
+//   console.log(testLogs(funRef,numbers,expected,actual));
+//  return 0
+//}
+//testLogOdd(oddNumbers,[1,2,3,4,5,6],[1,3,5]);
 
 
 //test of separate even number program.
