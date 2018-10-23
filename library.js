@@ -179,24 +179,20 @@ const isDescending = function(numbers){
 
 //to extract digits of a number in array.
 const extractDigits = function(number){
-  let digits = [];
-  number = number.toString().split("");
-  let length = number.length;
-  for(let index = 0; index < length; index++){
-    digits[index] = parseInt(number.shift());
+  const getDigits = function(element){
+    return parseInt(element);
   }
+  let digits = number.toString().split("").map(getDigits);
   return digits;
 }
 
 //to unique the elements of array.
 const unique = function(numbers){ 
-  let uniqueNumbers = [];
-  let index = 0;
-  uniqueNumbers[index] = numbers[index]
-  for(index = 1; index < numbers.length; index++){
-    if(!uniqueNumbers.includes(numbers[index]))
-      uniqueNumbers.push(numbers[index]);
+  const isIncluded = function(elements,element){
+    if(!elements.includes(element))elements.push(element)
+    return elements
   }
+  let uniqueNumbers = numbers.reduce(isIncluded,[]);
   return uniqueNumbers;
 }
 
@@ -284,7 +280,7 @@ const getPartition = function(array,number) {
   array.push(lessNumber);
   array.push(remaining);
   return array; 
- 
+
 }
 
 

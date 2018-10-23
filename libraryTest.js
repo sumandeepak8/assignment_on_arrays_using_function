@@ -162,7 +162,7 @@ assert.deepStrictEqual(getCommonElements([1,2,3,2,3,0],[0,3,4,2,,1],),[0,3,2,1])
 const difference = lib.difference;
 assert.deepStrictEqual(difference([2,4,6,8],[0,6],),[2,4,8]);
 assert.deepStrictEqual(difference([0,2,4,6,1,8],[0,6,,,,,,,,],),[2,4,1,8]);
-assert.deepStrictEqual(difference([0,2,," ",4,6,1,8],[0,6],),[2,undefined," ",4,1,8]);
+assert.deepStrictEqual(difference([0,2,," ",4,6,1,8],[0,6],),[2," ",4,1,8]);
 
 //test if the second array is proper subset of first array.
 const isSubset = lib.isSubset;
