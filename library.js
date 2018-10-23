@@ -155,32 +155,26 @@ const getFirstIndex = function(numbers,number){
 
 //to check if the array is in ascending order.
 const isAscending = function(numbers){
-
-  const isGreater = function(first,second){
-    return first <= second;
-  }
-  const checkEvery = function(element){
-    return element == true;
-  }
-  let initialValue = {cv:numbers[0],result:[true]};
-  let boolean = numbers.reduce(function(acc,cv){
-    acc.result.push(isGreater(acc.cv,cv));
+  let initialValue = {cv:numbers[0],result:true};
+  const createObject = function(acc,cv){
+    if(acc.cv > cv) acc.result = false;
     result = acc.result;
     return {cv,result}
-  },initialValue).result.every(checkEvery);
-
+  }
+  let boolean = numbers.reduce(createObject,initialValue).result;
   return boolean;
 }
 
 //to check the descending order of array.
 const isDescending = function(numbers){
-  let boolean = numbers.reduce(function(acc,cv){
-    if(acc.cv <cv)acc.res = false;
-    res = acc.res ;
-    return {cv,res}
-  },{cv:numbers[0],res:true}).res
+  const createObject = function(acc,cv){
+    if(acc.cv <cv)acc.result = false;
+    result = acc.result ;
+    return {cv,result};
+  }
+  let initialValue = {cv:numbers[0],result:true};
+  let boolean = numbers.reduce(createObject,initialValue).result
   return boolean;
-
 }
 
 //to extract digits of a number in array.
