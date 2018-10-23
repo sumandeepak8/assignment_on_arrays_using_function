@@ -155,19 +155,32 @@ const getFirstIndex = function(numbers,number){
 
 //to check if the array is in ascending order.
 const isAscending = function(numbers){
-let boolean = numbers.reduce(function(acc,cv){if(acc.cv >cv)acc.res = false;res = acc.res ;return {cv,res}},{cv:numbers[0],res:true}).res
-return boolean;
-}
 
+  const isGreater = function(first,second){
+    return first <= second;
+  }
+  const checkEvery = function(element){
+    return element == true;
+  }
+  let initialValue = {cv:numbers[0],result:[true]};
+  let boolean = numbers.reduce(function(acc,cv){
+    acc.result.push(isGreater(acc.cv,cv));
+    result = acc.result;
+    return {cv,result}
+  },initialValue).result.every(checkEvery);
+
+  return boolean;
+}
 
 //to check the descending order of array.
 const isDescending = function(numbers){
-  let index = 0;
-  let numToCompare = numbers[index];
-  for(index = 1; (index<numbers.length) && (numToCompare>=numbers[index]); index++){
-    numToCompare = numbers[index];
-  }
-  return (index == numbers.length);
+  let boolean = numbers.reduce(function(acc,cv){
+    if(acc.cv <cv)acc.res = false;
+    res = acc.res ;
+    return {cv,res}
+  },{cv:numbers[0],res:true}).res
+  return boolean;
+
 }
 
 //to extract digits of a number in array.
