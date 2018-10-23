@@ -190,7 +190,7 @@ const extractDigits = function(number){
 const unique = function(numbers){ 
   const isIncluded = function(elements,element){
     if(!elements.includes(element))elements.push(element)
-    return elements
+    return elements;
   }
   let uniqueNumbers = numbers.reduce(isIncluded,[]);
   return uniqueNumbers;
@@ -206,14 +206,12 @@ const getUnion = function(first,second){
 
 //to get the intersection of two arrays.
 const getCommonElements = function(first,second){
-  let commonElements = [];
   first = unique(first);
   second = unique(second);
-  for( let index = 0; index < second.length; index++){
-    if(first.includes(second[index])){
-      commonElements.push(second[index]);
-    }
+  const isIncluded = function(first,element){
+    return first.includes(element);
   }
+  let commonElements = second.filter(function(element){return isIncluded(first,element)});
   return commonElements;
 }
 
@@ -222,13 +220,11 @@ const getCommonElements = function(first,second){
 const difference = function(first,second){
   first = unique(first);
   second = unique(second);
-  let elements = [];
-  for(let number of first){
-    if( !second.includes(number)){
-      elements.push(number);
-    }
+  const isIncluded = function(first,element){
+    return !first.includes(element);
   }
-  return elements;
+  let diff = first.filter(function(element){return isIncluded(second,element)});
+  return diff;
 }
 
 
@@ -236,13 +232,14 @@ const difference = function(first,second){
 const isSubset = function(array,subsetCandidate){
   array = unique(array);
   subsetCandidate = unique(subsetCandidate);
-  let count = 0;
-  for( let element of subsetCandidate){
-    if(array.includes(element)){
-      count += 1;
-    }
+  const isIncluded = function(array,element){
+    return (array.includes(element));
   }
-  return (count == subsetCandidate.length);
+  const isTrue = function(element){
+    return (element == true);
+  }
+  let result = subsetCandidate.map(function(element){return isIncluded(array,element)}).every(isTrue);
+  return result;
 }
 
 //to insert elements from two arrays.
