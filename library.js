@@ -1,6 +1,6 @@
 // to get the sum of two numbers.
-const sum = function(firstNumbers,secondNumbers){
-  return firstNumbers+secondNumbers;
+const sum = function(firstNumber,secondNumber){
+  return firstNumber+secondNumber;
 }
 
 // to check if the given number is odd.
@@ -43,21 +43,23 @@ const getEverySecondNumber = function(numbers){
   return numbers.filter(isSecondElement);
 }
 
+const fibonacciElement = function(result){
+  result.unshift(result[0]+result[1]);
+  return result;
+}
 
 // to generate reverse fibonacci.
 const reverseFibonacciSeries = function(number){
-  let fiboNumbers = [];
-  if(number >0){
-    fiboNumbers.unshift(0);
+  if(number == 0){
+    return [];
   }
-  if(number>1){
-    fiboNumbers.unshift(1);
+  if(number == 1){
+    return [0];
   }
-  for(index = 2; index < number; index++){
-    fiboNumbers.unshift(fiboNumbers[0]+fiboNumbers[1]);
-  }
-  return fiboNumbers;
+  let array = Array(number-2).fill(1);
+  return array.reduce(fibonacciElement,[1,0])
 }
+
 
 // to check if the current number is greater than the last greatest number.
 const getGreater = function(previous,current){
@@ -74,8 +76,9 @@ const getGreatestNumber = function(numbers){
 
 // getLower function for getLowestNumber.
 const getLower = function(previous,current){
-  if(current<previous)
+  if(current<previous){
     return current;
+  }
   return previous;
 }
 
@@ -84,12 +87,10 @@ const getLowestNumber = function(numbers){
   return numbers.reduce(getLower); 
 }
 
-
 //test for average of the numbers of list.
 const average = function(numbers){
   return calculateSum(numbers)/numbers.length;
 }
-
 
 //to calculate the length of array elements.
 const mappingLengthOfElements = function(source){
@@ -128,7 +129,7 @@ const countNumbersBelowThreshold = function(numbers,threshold){
   return numbers.length-countNumbersAboveThreshold(numbers,threshold)-1;
 }
 
-const returnSameElement = function() {
+const returnSameElement = function(){
   return true;
 }
 
@@ -139,78 +140,66 @@ const generateReverse = function(numbers){
 
 //to find the first position of a number in a given array.
 const getFirstIndex = function(numbers,number){
-  let indexOfNumber;
-  for(let index = 0; index < numbers.length; index++){
-    if(numbers[index] == number){
-      indexOfNumber = index;
-      numbers.length = 0;
-    }
-  }
-  return indexOfNumber;
+  return numbers.indexOf(number);
 }
 
+const isAscendingCallBackFunc = function(accumulator,element){
+  if(accumulator.element > element) accumulator.result = false;
+  result = accumulator.result;
+  return {element,result}
+}
 
 //to check if the array is in ascending order.
 const isAscending = function(numbers){
-  let initialValue = {cv:numbers[0],result:true};
-  const createObject = function(acc,cv){
-    if(acc.cv > cv) acc.result = false;
-    result = acc.result;
-    return {cv,result}
-  }
-  return numbers.reduce(createObject,initialValue).result;
+  const initialValue = {element:numbers[0],result:true};
+  return numbers.reduce(isAscendingCallBackFunc,initialValue).result;
 }
 
 //to check the descending order of array.
 const isDescending = function(numbers){
-  const createObject = function(acc,cv){
-    if(acc.cv <cv)acc.result = false;
-    result = acc.result ;
-    return {cv,result};
-  }
-  let initialValue = {cv:numbers[0],result:true};
-  return numbers.reduce(createObject,initialValue).result
+  return isAscending(reverse(numbers));
+}
+
+const getDigits = function(element){
+  return parseInt(element);
 }
 
 //to extract digits of a number in array.
 const extractDigits = function(number){
-  const getDigits = function(element){
-    return parseInt(element);
-  }
   return number.toString().split("").map(getDigits);
+}
+
+const getUniqueElement = function(elements,element){
+  if(!elements.includes(element))elements.push(element)
+  return elements;
 }
 
 //to unique the elements of array.
 const unique = function(numbers){ 
-  const isIncluded = function(elements,element){
-    if(!elements.includes(element))elements.push(element)
-    return elements;
-  }
-  return numbers.reduce(isIncluded,[]);
+  return numbers.reduce(getUniqueElement,[]);
 }
-
 
 //to get union of two array.
 const getUnion = function(first,second){
   return unique(first.concat(second));
 }
 
-const isIncluded = function(uniqueFirst,element){
+
+const isCommon = function(uniqueFirst){
+  return function(element){
   return uniqueFirst.includes(element);
+}
 }
 
 //to get the intersection of two arrays.
 const getCommonElements = function(first,second){
   let uniqueFirst = unique(first);
   let uniqueSecond = unique(second);
-  const callBackFunc = function(element){
-    return isIncluded(uniqueFirst,element);
-  }
-  return uniqueSecond.filter(callBackFunc);
+  return uniqueSecond.filter(isCommon(uniqueFirst));
 }
 
 // callback function to get the difference between two arrays.
-const callBack = function(common) {
+const isOnlyInFirst = function(common) {
   return function (element){
     return !common.includes(element);
   }
@@ -219,7 +208,7 @@ const callBack = function(common) {
 //first array contains and second doesn't.
 const difference = function(first,second){
   let common = getCommonElements(first,second);
-  return first.filter(callBack(common));
+  return first.filter(isOnlyInFirst(common));
 }
 
 // callback function for isSubset function.
@@ -272,8 +261,6 @@ const partition = function(number){
 const getPartition = function(array,number) {
   return array.reduce(partition(number),[[],[]])
 }
-
-
 
 
 exports.extractOddNumbers = extractOddNumbers;
