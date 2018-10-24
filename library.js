@@ -1,12 +1,11 @@
 // to get the sum of two numbers.
-const sum = function(num1,num2){
-  return num1+num2;
+const sum = function(firstNumbers,secondNumbers){
+  return firstNumbers+secondNumbers;
 }
-exports.sum = sum;
 
 // to check if the given number is odd.
 const isOdd = function(number){
-    return (number%2 == 1 || number%2 == -1);
+  return (number%2 == 1 || number%2 == -1);
 }
 
 // to separate the odd numbers out of an array.
@@ -15,8 +14,8 @@ const extractOddNumbers = function(numbers){
 }
 
 // to check if the number is even.
-const isEven = function(number) {
-    return  (number%2 == 0);
+const isEven = function(number){
+  return  (number%2 == 0);
 }
 
 // to separate even numbers.
@@ -73,9 +72,10 @@ const getGreatestNumber = function(numbers){
   return numbers.reduce(getGreater); 
 }
 
+// getLower function for getLowestNumber.
 const getLower = function(previous,current){
-if(current<previous)
-  return current;
+  if(current<previous)
+    return current;
   return previous;
 }
 
@@ -111,33 +111,30 @@ const countOddNumbers = function(numbers){
   return extractOddNumbers(numbers).length;
 }
 
-const isLower = function(element,threshold){
-  return element>threshold
+// callback function for countNumbersAboveThreshold.
+const isAbove = function(threshold){
+  return function(element){
+    return element>threshold
+  }
 }
-
 
 // to count the numbers the are above to a certain threshold in an array.
 const countNumbersAboveThreshold = function(numbers,threshold){
-const callBack = function(element){
-  return isLower(element,threshold);
+  return numbers.filter(isAbove(threshold)).length;
 }
- return numbers.filter(callBack).length;
-}
-
 
 //to count the numbers that are below to a certain threshold in an array.
 const countNumbersBelowThreshold = function(numbers,threshold){
-  let  count = numbers.length-countNumbersAboveThreshold(numbers,threshold)-1;
-  return count;
+  return numbers.length-countNumbersAboveThreshold(numbers,threshold)-1;
+}
+
+const returnSameElement = function() {
+  return true;
 }
 
 //to find a reversed version of an array without changing the original array.
 const generateReverse = function(numbers){
-  const returnElement = function() {
-    return true;
-  }
-  let numberArray = numbers.filter(returnElement);
-  return reverse(numberArray);
+  return reverse(numbers.filter(returnSameElement));
 }
 
 //to find the first position of a number in a given array.
@@ -161,8 +158,7 @@ const isAscending = function(numbers){
     result = acc.result;
     return {cv,result}
   }
-  let boolean = numbers.reduce(createObject,initialValue).result;
-  return boolean;
+  return numbers.reduce(createObject,initialValue).result;
 }
 
 //to check the descending order of array.
@@ -173,8 +169,7 @@ const isDescending = function(numbers){
     return {cv,result};
   }
   let initialValue = {cv:numbers[0],result:true};
-  let boolean = numbers.reduce(createObject,initialValue).result
-  return boolean;
+  return numbers.reduce(createObject,initialValue).result
 }
 
 //to extract digits of a number in array.
@@ -200,79 +195,84 @@ const getUnion = function(first,second){
   return unique(first.concat(second));
 }
 
+const isIncluded = function(uniqueFirst,element){
+  return uniqueFirst.includes(element);
+}
 
 //to get the intersection of two arrays.
 const getCommonElements = function(first,second){
-  first = unique(first);
-  second = unique(second);
-  const isIncluded = function(first,element){
-    return first.includes(element);
+  let uniqueFirst = unique(first);
+  let uniqueSecond = unique(second);
+  const callBackFunc = function(element){
+    return isIncluded(uniqueFirst,element);
   }
-  return second.filter(function(element){return isIncluded(first,element)});
+  return uniqueSecond.filter(callBackFunc);
 }
 
+// callback function to get the difference between two arrays.
+const callBack = function(common) {
+  return function (element){
+    return !common.includes(element);
+  }
+}
 
 //first array contains and second doesn't.
 const difference = function(first,second){
-  first = unique(first);
-  second = unique(second);
-  const isIncluded = function(first,element){
-    return !first.includes(element);
-  }
-  return first.filter(function(element){return isIncluded(second,element)});
+  let common = getCommonElements(first,second);
+  return first.filter(callBack(common));
 }
 
+// callback function for isSubset function.
+const isIncludes = function(set){
+  return function(result,element){
+    return (result && set.includes(element));
+  }
+}
 
 //to find if the second array is proper subset of first 
 const isSubset = function(array,subsetCandidate){
-  array = unique(array);
-  subsetCandidate = unique(subsetCandidate);
-  const isIncluded = function(array,element){
-    return (array.includes(element));
+  let set = unique(array);
+  let subset = unique(subsetCandidate);
+  return subset.reduce(isIncludes(set),true);
+}
+
+const getZipElement = function(numbers){
+  return function(zip,element){
+    zip.push([element,numbers.shift()]);
+    return zip;
   }
-  const isTrue = function(element){
-    return (element == true);
-  }
-  return subsetCandidate.map(function(element){return isIncluded(array,element)}).every(isTrue);
 }
 
 //to insert elements from two arrays.
 const zipArray = function(first,second){
-  let zipElements =[];
-  for(let index=0; (index<first.length && index<second.length); index++){
-    zipElements.push([first[index],second[index]]);
+  if(first.length > second.length){
+    return second.reduce(getZipElement(first.slice(0,first.length)),[]);
   }
-  return zipElements;
+  return first.reduce(getZipElement(second.slice(0,second.length)),[]);
 }
 
 //to rotate the given array.
 const rotate = function(array,times){
-  let element;
-  for(let index=0; index<times; index++){
-    element = array.shift();
-    array.push(element);
+  return array.slice(times,array.length).concat(array.slice(0,times));
+}
+
+// callback function for getPartition.
+const partition = function(number){
+  return function(result,element){
+    if(element>number) {
+      result[1].push(element)
+      return result
+    }
+    result[0].push(element);
+    return result;
   }
-  return array;
 }
 
 //to create a getPartitioned array.
 const getPartition = function(array,number) {
-  let lessNumber = [];
-  let remaining = [];
-  let length = array.length;
-  for(let index=0; index<length; index++){
-    if(array[index]>number){
-      remaining.push(array[index]);
-      continue;
-    }
-    lessNumber.push(array[index]);
-  }
-  array = [];
-  array.push(lessNumber);
-  array.push(remaining);
-  return array; 
-
+  return array.reduce(partition(number),[[],[]])
 }
+
 
 
 

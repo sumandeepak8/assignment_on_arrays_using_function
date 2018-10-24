@@ -175,7 +175,7 @@ assert.deepStrictEqual(isSubset([1,"hello",0,40],[1,"hello",40]),true);
 const zipArray = lib.zipArray;
 assert.deepStrictEqual(zipArray([2,5,3],[2,5,3]),[[2,2],[5,5],[3,3]]);
 assert.deepStrictEqual(zipArray([2,5,3],[2,5]),[[2,2],[5,5]]);
-assert.deepStrictEqual(zipArray([2,"hello",3],[2,5,]),[[2,2],["hello",5]]);
+assert.deepStrictEqual(zipArray([2,"hello",3],[2,5,]),[[2,2],[5,"hello"]]);
 
 
 
