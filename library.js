@@ -11,8 +11,7 @@ const isOdd = function(number){
 
 // to separate the odd numbers out of an array.
 const extractOddNumbers = function(numbers){
-  let oddNumbers = numbers.filter(isOdd);
-  return oddNumbers;
+  return numbers.filter(isOdd);
 }
 
 // to check if the number is even.
@@ -22,8 +21,7 @@ const isEven = function(number) {
 
 // to separate even numbers.
 const extractEvenNumbers = function(numbers){
-  let evenNumbers = numbers.filter(isEven);
-  return evenNumbers;
+  return numbers.filter(isEven);
 }
 
 // to find the sum of number.
@@ -43,8 +41,7 @@ const isSecondElement = function(number,index){
 
 // to get every second element.
 const getEverySecondNumber = function(numbers){
-  let numberList = numbers.filter(isSecondElement);
-  return numberList;
+  return numbers.filter(isSecondElement);
 }
 
 
@@ -73,26 +70,24 @@ const getGreater = function(previous,current){
 
 // to find greater number in list.
 const getGreatestNumber = function(numbers){
-  let greatestNumber = numbers.reduce(getGreater); 
-  return greatestNumber;
+  return numbers.reduce(getGreater); 
 }
 
 const getLower = function(previous,current){
-if(current<previous) return current;
+if(current<previous)
+  return current;
   return previous;
 }
 
 //to find lowest number.
 const getLowestNumber = function(numbers){
-  let lowestNumber = numbers.reduce(getLower); 
-  return lowestNumber;
+  return numbers.reduce(getLower); 
 }
 
 
 //test for average of the numbers of list.
 const average = function(numbers){
-  let averageNumber = calculateSum(numbers)/numbers.length;
-  return averageNumber;
+  return calculateSum(numbers)/numbers.length;
 }
 
 
@@ -101,33 +96,32 @@ const mappingLengthOfElements = function(source){
   const calcLength = function(element) {
     return element.length;
   }
-   let lengths = source.map(calcLength);
-    return lengths
+  return source.map(calcLength);
 }
 
 
 // to count the odd numbers.
 const countEvenNumbers = function(numbers){
-  let count = extractEvenNumbers(numbers).length;
-  return count;
+  return extractEvenNumbers(numbers).length;
 }
 
 
 // to count the even numbers.
 const countOddNumbers = function(numbers){
-  let count = extractOddNumbers(numbers).length;
-  return count;
+  return extractOddNumbers(numbers).length;
 }
 
- const isLower = function(element,threshold){
-    return element>threshold
-  }
+const isLower = function(element,threshold){
+  return element>threshold
+}
 
 
 // to count the numbers the are above to a certain threshold in an array.
 const countNumbersAboveThreshold = function(numbers,threshold){
-  let count = numbers.filter(function(element){return isLower(element,threshold);}).length;
-  return count;
+const callBack = function(element){
+  return isLower(element,threshold);
+}
+ return numbers.filter(callBack).length;
 }
 
 
@@ -139,7 +133,10 @@ const countNumbersBelowThreshold = function(numbers,threshold){
 
 //to find a reversed version of an array without changing the original array.
 const generateReverse = function(numbers){
-  let numberArray = numbers.filter(function(){return true});
+  const returnElement = function() {
+    return true;
+  }
+  let numberArray = numbers.filter(returnElement);
   return reverse(numberArray);
 }
 
@@ -185,8 +182,7 @@ const extractDigits = function(number){
   const getDigits = function(element){
     return parseInt(element);
   }
-  let digits = number.toString().split("").map(getDigits);
-  return digits;
+  return number.toString().split("").map(getDigits);
 }
 
 //to unique the elements of array.
@@ -195,15 +191,13 @@ const unique = function(numbers){
     if(!elements.includes(element))elements.push(element)
     return elements;
   }
-  let uniqueNumbers = numbers.reduce(isIncluded,[]);
-  return uniqueNumbers;
+  return numbers.reduce(isIncluded,[]);
 }
 
 
 //to get union of two array.
 const getUnion = function(first,second){
-  let union = unique(first.concat(second));
-  return union;
+  return unique(first.concat(second));
 }
 
 
@@ -214,8 +208,7 @@ const getCommonElements = function(first,second){
   const isIncluded = function(first,element){
     return first.includes(element);
   }
-  let commonElements = second.filter(function(element){return isIncluded(first,element)});
-  return commonElements;
+  return second.filter(function(element){return isIncluded(first,element)});
 }
 
 
@@ -226,8 +219,7 @@ const difference = function(first,second){
   const isIncluded = function(first,element){
     return !first.includes(element);
   }
-  let diff = first.filter(function(element){return isIncluded(second,element)});
-  return diff;
+  return first.filter(function(element){return isIncluded(second,element)});
 }
 
 
@@ -241,8 +233,7 @@ const isSubset = function(array,subsetCandidate){
   const isTrue = function(element){
     return (element == true);
   }
-  let result = subsetCandidate.map(function(element){return isIncluded(array,element)}).every(isTrue);
-  return result;
+  return subsetCandidate.map(function(element){return isIncluded(array,element)}).every(isTrue);
 }
 
 //to insert elements from two arrays.
