@@ -98,7 +98,10 @@ const average = function(numbers){
 
 //to calculate the length of array elements.
 const mappingLengthOfElements = function(source){
-   let lengths = source.map(function(element){ return element.length;});
+  const calcLength = function(element) {
+    return element.length;
+  }
+   let lengths = source.map(calcLength);
     return lengths
 }
 
