@@ -1,23 +1,12 @@
 const assert = require('assert');
 const lib = require('./library.js');
-const testFrame = require('./testFrameWork');
 
-const {testLogs} = testFrame;
 
 //test to separate odd numbers.
 const oddNumbers = lib.extractOddNumbers;
 assert.deepStrictEqual(oddNumbers([1,2,3,4,5,6]),[1,3,5]);
 assert.deepStrictEqual(oddNumbers([0,3,4,[],6]),[3]);
 assert.deepEqual(oddNumbers([-1,3,"a",[],null,undefined]),[-1,3]);
-
-const testLogOdd = function(funRef,numbers,expected){
-  let actual = funRef(numbers);
-   console.log(testLogs(funRef,numbers,expected,actual));
-}
-
-testLogOdd(oddNumbers,[1,2,3,4,5,6],[1,3,5]);
-testLogOdd(oddNumbers,[1,0,3,4],[1,3]);
-testLogOdd(oddNumbers,[1,2,3,4,5,6],[1,3,5]);
 
 
 //test of separate even number program.

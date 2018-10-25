@@ -62,7 +62,7 @@ const reverseFibonacciSeries = function(number){
 
 
 // to check if the current number is greater than the last greatest number.
-const getGreater = function(previous,current){
+const getGreaterNumber = function(previous,current){
   if(previous>current){
     return previous;
   }
@@ -71,11 +71,11 @@ const getGreater = function(previous,current){
 
 // to find greater number in list.
 const getGreatestNumber = function(numbers){
-  return numbers.reduce(getGreater); 
+  return numbers.reduce(getGreaterNumber); 
 }
 
-// getLower function for getLowestNumber.
-const getLower = function(previous,current){
+// getSmallerNumber function for getLowestNumber.
+const getSmallerNumber = function(previous,current){
   if(current<previous){
     return current;
   }
@@ -84,7 +84,7 @@ const getLower = function(previous,current){
 
 //to find lowest number.
 const getLowestNumber = function(numbers){
-  return numbers.reduce(getLower); 
+  return numbers.reduce(getSmallerNumber); 
 }
 
 //test for average of the numbers of list.
@@ -113,7 +113,7 @@ const countOddNumbers = function(numbers){
 }
 
 // callback function for countNumbersAboveThreshold.
-const isAbove = function(threshold){
+const isAboveThreshold = function(threshold){
   return function(element){
     return element>threshold
   }
@@ -121,7 +121,7 @@ const isAbove = function(threshold){
 
 // to count the numbers the are above to a certain threshold in an array.
 const countNumbersAboveThreshold = function(numbers,threshold){
-  return numbers.filter(isAbove(threshold)).length;
+  return numbers.filter(isAboveThreshold(threshold)).length;
 }
 
 //to count the numbers that are below to a certain threshold in an array.
@@ -129,13 +129,13 @@ const countNumbersBelowThreshold = function(numbers,threshold){
   return numbers.length-countNumbersAboveThreshold(numbers,threshold)-1;
 }
 
-const returnSameElement = function(){
+const returnElement = function(){
   return true;
 }
 
 //to find a reversed version of an array without changing the original array.
 const generateReverse = function(numbers){
-  return reverse(numbers.filter(returnSameElement));
+  return reverse(numbers.filter(returnElement));
 }
 
 //to find the first position of a number in a given array.
@@ -157,16 +157,16 @@ const isAscending = function(numbers){
 
 //to check the descending order of array.
 const isDescending = function(numbers){
-  return isAscending(reverse(numbers));
+  return isAscending(numbers.reverse());
 }
 
-const getDigits = function(element){
+const getDigit = function(element){
   return parseInt(element);
 }
 
 //to extract digits of a number in array.
 const extractDigits = function(number){
-  return number.toString().split("").map(getDigits);
+  return number.toString().split("").map(getDigit);
 }
 
 const getUniqueElement = function(elements,element){
@@ -185,7 +185,7 @@ const getUnion = function(first,second){
 }
 
 
-const isCommon = function(uniqueFirst){
+const isCommonElement = function(uniqueFirst){
   return function(element){
   return uniqueFirst.includes(element);
 }
@@ -195,7 +195,7 @@ const isCommon = function(uniqueFirst){
 const getCommonElements = function(first,second){
   let uniqueFirst = unique(first);
   let uniqueSecond = unique(second);
-  return uniqueSecond.filter(isCommon(uniqueFirst));
+  return uniqueSecond.filter(isCommonElement(uniqueFirst));
 }
 
 // callback function to get the difference between two arrays.
